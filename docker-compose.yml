@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  mercury_dev:
+    image: dev_test:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8888:8888"
+      - "8050:8050"
+    volumes:
+      - /home/lethwombie/git/mercury_dev/data:/data
+      - /home/lethwombie/git/mercury_dev/notebooks:/notebooks
+      - /home/lethwombie/git/mercury_dev/dash_app:/dash_app
+    entrypoint: ["jupyter", "notebook", "--ip=0.0.0.0", "--port=8888", "--notebook-dir=/notebooks", "--allow-root", "--no-browser"]
