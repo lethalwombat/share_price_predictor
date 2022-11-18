@@ -1,6 +1,8 @@
 version: '3'
 
 services:
+  environment:
+    TZ: "Australia/Brisbane"
   stock_price_predictor:
     image: stock_price_predictor:latest
     build:
