@@ -1,13 +1,13 @@
-version: '3'
+version: '3.6'
 
 services:
-  environment:
-    TZ: "Australia/Brisbane"
   stock_price_predictor:
     image: stock_price_predictor:latest
     build:
       context: .
       dockerfile: Dockerfile
+    environment:
+      TZ: "Australia/Brisbane"      
     ports:
       - "8888:8888" # jupyter
       - "8050:8050" # dash
