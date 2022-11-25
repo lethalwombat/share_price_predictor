@@ -93,7 +93,7 @@ def download(*args):
             _df.append(_chunk)
 
         # convert downloaded data to DataFrame
-        pd.concat(_df, ignore_index=True).to_csv('../data/download_{}.csv'.format(timestamp()))
+        pd.concat(_df, ignore_index=True).to_csv('../data/download_{}.csv'.format(timestamp()), index=False)
 
 # check download settings button
 download_button = Button(description="Download")
