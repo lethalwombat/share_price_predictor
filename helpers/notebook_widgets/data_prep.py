@@ -5,7 +5,7 @@ from os import listdir
 from ipywidgets import Dropdown
 
 # widget options
-_downloaded_files = sorted([f.split(".csv")[0] for f in listdir('/data')])
+_downloaded_files = sorted([f.split(".csv")[0] for f in listdir('/data') if f[0:8] == 'download'])
 
 # for each downloaded file we need to understand which stock codes exists in it
 _stock_codes = {}
