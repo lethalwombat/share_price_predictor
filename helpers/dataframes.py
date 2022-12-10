@@ -25,6 +25,7 @@ def cumulative_max(df, col) -> pd.DataFrame:
     df = df.drop(columns=['_cumulative_max_'])
     return df
 
+
 def increase_decline_streak(df, col) -> pd.DataFrame:
     '''Calculate cumulative number of days the price has been in decline'''
     df['_diff_'] = df[col].diff().fillna(value=0.0)
@@ -43,5 +44,20 @@ def increase_decline_streak(df, col) -> pd.DataFrame:
         df[f'{event_flag}_streak'] = df[f'_{event_flag}_'].groupby((df[f'_{event_flag}_'] != df[f'_{event_flag}_'].shift()).cumsum()).cumcount() + 1
         df.loc[df[f'_{event_flag}_'] == 'non-event', f'{event_flag}_streak'] = 0
         df = df.drop(columns=[f'_{event_flag}_'])
+    return df
 
+
+def previous_swing(df, cols) -> pd.DataFrame:
+    '''Calculate difference between the High and Low price for the previous period'''
+    df['_high_'], df['_low_'] = df[cols[0]].shift(periods=1), df[cols[1]].shift(periods=1)
+    previous_swing = (
+        df
+        .apply(lambda row : row['_high_'] / row['_low_'], axis=1)
+        .fillna(value=1.0)
+    )
+    df = (
+        df
+        .assign(previous_swing=previous_swing)
+        .drop(columns=['_high_', '_low_'])
+    )
     return df
