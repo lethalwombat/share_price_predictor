@@ -8,14 +8,14 @@ RUN \
     apt-get install -y
 
 # copy requirements.txt into the container
-COPY requirements.txt requirements.txt
+COPY requirements_dash.txt requirements_dash.txt
 
 # upgrade pip and setuptools
 RUN \
     pip3 install --no-cache-dir --upgrade pip && \
-    pip3 install --no-cache-dir -r requirements.txt && \
-    rm requirements.txt
+    pip3 install --no-cache-dir -r requirements_dash.txt && \
+    rm requirements_dash.txt
 
 # ports and volumes
-EXPOSE 8888
-VOLUME data notebooks dash_app
+EXPOSE 8050
+VOLUME dash_app
