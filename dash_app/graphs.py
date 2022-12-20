@@ -26,18 +26,18 @@ def create_metrics_widget(top_metric_id='', middle_metric_id='', bottom_metric_i
         ]),
         dbc.Row([
             dbc.Col([
-                html.H5('R2 Score', style={'text-align' : 'right'})
+                html.H6('R2 Score', style={'text-align' : 'right'})
             ], width=6, align='center'),
             dbc.Col([
-                html.H6(id=middle_metric_id, style={'text-align' : 'left'})
+                html.H5(id=middle_metric_id, style={'text-align' : 'left'})
             ], width=6, align='center')
         ]),
         dbc.Row([
             dbc.Col([
-                html.H5('Direction match', style={'text-align' : 'right'})
+                html.H6('Direction match', style={'text-align' : 'right'})
             ], width=6, align='center'),
             dbc.Col([
-                html.H6(id=bottom_metric_id, style={'text-align' : 'left'})
+                html.H5(id=bottom_metric_id, style={'text-align' : 'left'})
             ], width=6, align='center')
         ]) 
     ], fluid=True)
