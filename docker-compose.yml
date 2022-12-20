@@ -1,35 +1,18 @@
 version: '3.6'
 
-services:
-  stock_predictor_jupyter:
-    image: stock_predictor_jupyter:latest
+  stock_predictor_dashboard:
+    image: stock_predictor_dashboard:latest
     build:
       context: .
       dockerfile: Dockerfile
     environment:
       TZ: "Australia/Brisbane"      
     ports:
-      - "8888:8888" # jupyter
-    volumes:
-      - /home/lethwombie/git/stock_price_predictor/helpers:/helpers
-      - /home/lethwombie/git/stock_price_predictor/data:/data
-      - /home/lethwombie/git/stock_price_predictor/notebooks:/notebooks
-      - /home/lethwombie/git/stock_price_predictor/dash_app:/dash_app
-    entrypoint: ["jupyter", "notebook", "--ip=0.0.0.0", "--port=8888", "--notebook-dir=/notebooks", "--allow-root", "--no-browser", "--NotebookApp.token=''"]
-
-  stock_predictor_dashboard:
-    image: stock_predictor_dashboard:latest
-    build:
-      context: .
-      dockerfile: Dockerfile_dash
-    environment:
-      TZ: "Australia/Brisbane"      
-    ports:
       - "8050:8050" # dash
     volumes:
       - /home/lethwombie/git/stock_price_predictor/dash_app:/dash_app
+      - /home/lethwombie/git/stock_price_predictor/helpers:/helpers
     working_dir: /dash_app
-    entrypoint: ["./app_start.sh"]
-    depends_on:
-      - stock_predictor_jupyter
-      
+    # entrypoint: ["./app_start.sh"]
+    entrypoint: ["python", "app.py"]
+          
