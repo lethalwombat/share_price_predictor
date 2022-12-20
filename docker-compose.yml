@@ -1,7 +1,7 @@
 version: '3.6'
 
   stock_predictor_dashboard:
-    image: stock_predictor_dashboard:latest
+    image: stock_price_predictor:latest
     build:
       context: .
       dockerfile: Dockerfile
