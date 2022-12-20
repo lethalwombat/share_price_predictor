@@ -14,9 +14,6 @@ def _yahoo_request(stock_code, dt_from, dt_to) -> str:
 def download_stock_data(stock_code, dt_from, dt_to) -> pd.DataFrame:
     '''Download the stock code data for the selected dates and return a DataFrame'''
     df = (
-        pd.read_csv(_yahoo_request(stock_code, dt_from, dt_to), index_col=False)
-        .assign(stock_code=stock_code)
+        pd.read_csv(_yahoo_request(stock_code, dt_from, dt_to), index_col=False, usecols=['Date', 'High', 'Low', 'Adj Close'], parse_dates=['Date'])
     )
-    # display df information
-    print('{} data downloaded with {:,} rows'.format(stock_code, df.shape[0]))
     return df

@@ -17,5 +17,5 @@ RUN \
     rm requirements.txt
 
 # ports and volumes
-EXPOSE 8888
-VOLUME data notebooks dash_app
+EXPOSE 8050
+VOLUME dash_app
