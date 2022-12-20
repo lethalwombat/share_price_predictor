@@ -40,13 +40,6 @@ graphs = dbc.Container([
     ]),
 ], fluid=True)
 
-dropdown_definitions = [
-    create_dropdown(stock_codes_values, 'Select stock code:', id='dropdown-stock-code'),
-    create_dropdown([str(i) for i in range(2010, 2020)], 'Last year of training data:', id='dropdown-year'),
-    create_dropdown([i for i in range(1, 4)], 'Training data years:', id='dropdown-data-size'),
-    create_radioitems(['  0.01', '  0.05', '  0.1', '  0.15'], 'Learning rate:', id='input-learning-rate'),
-    create_dropdown([50, 100, 150], 'Number of estimators:', id='input-dropdown-estimators')
-]
 
 # wrap each drop down in row and col
 dropdown_wrap = lambda obj : dbc.Row([dbc.Col([obj], width=12)])
@@ -55,8 +48,9 @@ dropdowns = dbc.Container([
     dropdown_wrap(create_dropdown(stock_codes_values, 'Select stock code:', id='dropdown-stock-code')),
     dropdown_wrap(create_dropdown([str(i) for i in range(2010, 2020)], 'Last year of training data:', id='dropdown-year')),
     dropdown_wrap(create_dropdown([i for i in range(1, 4)], 'Training data years:', id='dropdown-data-size')),
-    dropdown_wrap(create_radioitems(['  0.01', '  0.05', '  0.1', '  0.15'], 'Learning rate:', id='input-learning-rate')),
-    dropdown_wrap(create_dropdown([50, 100, 150], 'Number of estimators:', id='input-dropdown-estimators')) 
+    dropdown_wrap(create_dropdown([0.01, 0.05, 0.1, 0.2], 'Learning rate:', id='input-learning-rate')),
+    dropdown_wrap(create_dropdown([50, 100, 150], 'Number of estimators:', id='input-dropdown-estimators')),
+    dropdown_wrap(create_dropdown(['GB', 'LinReg'], 'Model type:', id='input-model-type')),    
 ], fluid=True)
 
 
@@ -93,18 +87,21 @@ app.layout = dbc.Container([
         Output('line-chart-prediction-label', 'children'),
         Output('stock-code-name', 'children'),        
         Output('r2-metric', 'children'),
-        Output('direction-accuracy-metric', 'children')
+        Output('direction-accuracy-metric', 'children'),
+        Output('input-dropdown-estimators', 'disabled'),
+        Output('input-learning-rate', 'disabled')
     ],
     [
         Input('dropdown-stock-code', 'value'),
         Input('dropdown-year', 'value'),
         Input('dropdown-data-size', 'value'),
         Input('input-learning-rate', 'value'),
-        Input('input-dropdown-estimators', 'value')
+        Input('input-dropdown-estimators', 'value'),
+        Input('input-model-type', 'value'),
     ])
-def update_graph(value, value_year, value_size, value_learning_rate, value_n_estimators):
+def update_graph(value, value_year, value_size, value_learning_rate, value_n_estimators, value_model_type):
     df = (
-        run_model(value, value_year, training_data_size=value_size, learning_rate=float(value_learning_rate.strip()), n_estimators=value_n_estimators)
+        run_model(value, value_year, training_data_size=value_size, learning_rate=value_learning_rate, n_estimators=value_n_estimators, model_type=value_model_type)
         .rename(columns={
             'price_next_day' : 'Actual', 
             'price_next_day_simulated' : 'Prediction',
@@ -189,8 +186,14 @@ def update_graph(value, value_year, value_size, value_learning_rate, value_n_est
     ]
     if value_size == 1:
         chart_titles = [c.replace('years', 'year') for c in chart_titles]
-    return line_chart_actuals, line_chart_prediction, bar_chart_prediction, chart_titles[0], chart_titles[1], stock_code_name, r2_score, direction_accuracy
-
+    
+    # dropdown states
+    if value_model_type=='LinReg':
+        estimators_disabled, learning_rate_disabled = True, True
+    else:
+        estimators_disabled, learning_rate_disabled = False, False
+    return line_chart_actuals, line_chart_prediction, bar_chart_prediction, chart_titles[0], chart_titles[1], stock_code_name, r2_score, direction_accuracy,\
+        estimators_disabled, learning_rate_disabled
 
 # development
 if __name__ == '__main__':
