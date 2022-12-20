@@ -1,11 +1,12 @@
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import GradientBoostingRegressor
+from sklearn.linear_model import LinearRegression
 from sklearn.metrics import r2_score
 from download import download_stock_data
 from features import rolling_max, cumulative_max, increase_decline_streak, rolling_mean, simulate_price
 
-def run_model(stock_code, training_year, training_data_size=1) -> pd.DataFrame:
+def run_model(stock_code, training_year, training_data_size=1, learning_rate=0.15, n_estimators=150, model_type='GB') -> pd.DataFrame:
     # download the data and rename columns
     df = (
         download_stock_data(stock_code, f'{int(training_year)-training_data_size}-12-01', f'{int(training_year)+2}-01-30')
@@ -86,8 +87,13 @@ def run_model(stock_code, training_year, training_data_size=1) -> pd.DataFrame:
     # scale the inputs
     scaler = StandardScaler().fit(X_train)
     X_train_scaled = scaler.transform(X_train)
+    # algo types
+    model_types = {
+        'GB' : GradientBoostingRegressor(learning_rate=learning_rate, n_estimators=n_estimators, max_depth=3),
+        'LinReg' : LinearRegression() 
+    }
+    reg = model_types.get(model_type)
     # fit the model
-    reg = GradientBoostingRegressor(learning_rate=0.1, n_estimators=150, max_depth=3)
     reg.fit(X_train_scaled, y_train)
     # fit predictions
     X_train['prediction'], X_test['prediction'] = reg.predict(X_train_scaled), reg.predict(scaler.transform(X_test))
@@ -104,8 +110,6 @@ def run_model(stock_code, training_year, training_data_size=1) -> pd.DataFrame:
         [['date', 'price_today', 'price_next_day', model_target, 'prediction', 'subset']]
         .rename(columns={model_target : 'actual'})
         .pipe(simulate_price)
+        .assign(r2_train=r2_train)
         )
-    # calculate the price if the model is built on price increase
-    # if model_target == 'price_increase_next_day':
-    #     df['prediction'] = df['prediction'] * df['price_today']
     return df
