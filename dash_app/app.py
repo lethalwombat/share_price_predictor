@@ -1,24 +1,22 @@
 import sys
 sys.path.append('/helpers')
-from engine import run_model
-import pandas as pd
-
 import dash_bootstrap_components as dbc
-from dash import Dash, dcc, html, dash_table, Input, Output
+from dash import Dash, dcc, html, Input, Output
 import plotly.express as px
+from engine import run_model
 from stock_codes import stock_codes
 from model_input_selectors import create_dropdown, create_radioitems
 from graphs import create_graph, create_metrics_widget
 
+# app set-up
 app = Dash(__name__, external_stylesheets=[dbc.themes.YETI])
 app.title = 'Stock Price Predictor'
-
 server = app.server
 
 # selector values
 stock_codes_values = sorted([k['name'].upper() for k in stock_codes])
 
-# object wrap
+# graph objects
 graph_wrap = lambda obj, width : dbc.Col([obj], width=width)
 graphs = dbc.Container([
     dbc.Row([
@@ -40,10 +38,8 @@ graphs = dbc.Container([
     ]),
 ], fluid=True)
 
-
-# wrap each drop down in row and col
+# selector objects
 dropdown_wrap = lambda obj : dbc.Row([dbc.Col([obj], width=12)])
-
 dropdowns = dbc.Container([
     dropdown_wrap(create_dropdown(stock_codes_values, 'Select stock code:', id='dropdown-stock-code')),
     dropdown_wrap(create_dropdown([str(i) for i in range(2010, 2020)], 'Last year of training data:', id='dropdown-year')),
@@ -53,7 +49,7 @@ dropdowns = dbc.Container([
     dropdown_wrap(create_dropdown(['GB', 'LinReg'], 'Model type:', id='input-model-type')),    
 ], fluid=True)
 
-
+# application layout
 app.layout = dbc.Container([
     dbc.Row([
         dbc.Col([
@@ -77,7 +73,7 @@ app.layout = dbc.Container([
     ])
 ], fluid=True)
 
-
+# callback
 @app.callback(
     [
         Output('line-chart-actuals', 'figure'),
@@ -100,8 +96,12 @@ app.layout = dbc.Container([
         Input('input-model-type', 'value'),
     ])
 def update_graph(value, value_year, value_size, value_learning_rate, value_n_estimators, value_model_type):
+    # train the model
     df = (
-        run_model(value, value_year, training_data_size=value_size, learning_rate=value_learning_rate, n_estimators=value_n_estimators, model_type=value_model_type)
+        run_model(
+            value, value_year,\
+            training_data_size=value_size, learning_rate=value_learning_rate, n_estimators=value_n_estimators, model_type=value_model_type
+            )
         .rename(columns={
             'price_next_day' : 'Actual', 
             'price_next_day_simulated' : 'Prediction',
@@ -120,7 +120,7 @@ def update_graph(value, value_year, value_size, value_learning_rate, value_n_est
                     else 'red', axis=1))
         .rename(columns={'direction_match' : 'Direction'})
     )
-    # set up charts
+    # training data chart
     line_chart_actuals = (
     px.line(
         df.query('subset=="training"'),
@@ -140,6 +140,7 @@ def update_graph(value, value_year, value_size, value_learning_rate, value_n_est
         legend_title='', hovermode='x unified')
         .update_traces(mode='lines', hovertemplate='%{y:$.2f}<extra></extra>')
     )
+    # validation data chart
     line_chart_prediction = (
     px.line(
         df.query('subset=="validation"'),
@@ -160,6 +161,7 @@ def update_graph(value, value_year, value_size, value_learning_rate, value_n_est
         .update_traces(mode='lines', hovertemplate='%{y:$.2f}<extra></extra>')
         .update_xaxes(rangeslider_visible=True)
     )
+    # direction accuracy match chart
     bar_chart_prediction = (
         px.bar(
             (df
@@ -173,12 +175,11 @@ def update_graph(value, value_year, value_size, value_learning_rate, value_n_est
         'paper_bgcolor' : 'rgba(0, 0, 0, 0)'}, hovermode=False, yaxis_tickformat='.0%')
         .update_traces(marker_color=df.query('subset=="validation"')['Direction'])
     )
-    # calculate metrics
+    # calculate metrics for the bottom left corner
     stock_code_name = [s['description'] for s in stock_codes if s['name'] == value][0]
     r2_score = '{:.1%}'.format(df['r2_train'].unique()[0])
     direction_accuracy = '{:.1%}'\
         .format(df.query('subset == "validation" & Direction == "green"').shape[0] / df.query('subset == "validation"').shape[0])    
-
     # generate chart titles
     chart_titles = [
         f'Model fit for {value} using {value_size} years of data from {int(value_year)-value_size+1} to {value_year}',
@@ -186,15 +187,15 @@ def update_graph(value, value_year, value_size, value_learning_rate, value_n_est
     ]
     if value_size == 1:
         chart_titles = [c.replace('years', 'year') for c in chart_titles]
-    
-    # dropdown states
+    # disable dropdowns for certain model types
     if value_model_type=='LinReg':
         estimators_disabled, learning_rate_disabled = True, True
     else:
         estimators_disabled, learning_rate_disabled = False, False
-    return line_chart_actuals, line_chart_prediction, bar_chart_prediction, chart_titles[0], chart_titles[1], stock_code_name, r2_score, direction_accuracy,\
-        estimators_disabled, learning_rate_disabled
+    return line_chart_actuals, line_chart_prediction, bar_chart_prediction,\
+        chart_titles[0], chart_titles[1], stock_code_name,\
+        r2_score, direction_accuracy, estimators_disabled, learning_rate_disabled
 
-# development
+# uncomment below for development and debugging
 if __name__ == '__main__':
     app.run_server(port='8050', host='0.0.0.0', debug=True)
