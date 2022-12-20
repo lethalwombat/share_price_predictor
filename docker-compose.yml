@@ -1,5 +1,5 @@
 version: '3.6'
- services:
+services:
   stock_predictor_dashboard:
     image: stock_price_predictor:latest
     build:
