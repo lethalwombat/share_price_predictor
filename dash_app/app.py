@@ -10,7 +10,7 @@ from graphs import create_graph, create_metrics_widget
 
 # app set-up
 app = Dash(__name__, external_stylesheets=[dbc.themes.YETI])
-app.title = 'Stock Price Predictor'
+app.title = 'Share Price Predictor'
 server = app.server
 
 # selector values
