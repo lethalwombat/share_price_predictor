@@ -31,7 +31,8 @@ To deploy the application in the environment of your choice, follow the process 
 
 2. Navigate to the `share_price_predictor` folder and run `start_app.sh`
 > `./start_app.sh`
-> *Share price predictor* will be available at port 8050
+
+> **Share Price Predictor** will be available at port 8050
 
 3. Run `stop_app.sh` to shut down the application
 > `./stop_app.sh`
