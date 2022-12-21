@@ -1,7 +1,7 @@
 version: '3.6'
 services:
-  stock_predictor_dashboard:
-    image: stock_price_predictor:latest
+  share_price_predictor:
+    image: share_price_predictor:latest
     build:
       context: .
       dockerfile: Dockerfile
@@ -9,9 +9,6 @@ services:
       TZ: "Australia/Brisbane"
     ports:
       - "8050:8050" # dash
-    volumes:
-      - /home/lethwombie/git/stock_price_predictor/dash_app:/dash_app
-      - /home/lethwombie/git/stock_price_predictor/helpers:/helpers
     working_dir: /dash_app
     entrypoint: ["./app_start.sh"]
-    # entrypoint: ["python", "app.py"]
+    

@@ -16,6 +16,9 @@ RUN \
     pip3 install --no-cache-dir -r requirements.txt && \
     rm requirements.txt
 
-# ports and volumes
+# copy applications assets into the container
+COPY dash_app /dash_app
+COPY helpers /helpers
+
+# expose 8050 to the outside world
 EXPOSE 8050
-VOLUME dash_app
