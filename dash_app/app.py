@@ -183,7 +183,7 @@ def update_graph(value, value_year, value_size, value_learning_rate, value_n_est
     # generate chart titles
     chart_titles = [
         f'Model fit for {value} using {value_size} years of data from {int(value_year)-value_size+1} to {value_year}',
-        f'Model prediction for {value} stock price movement in {int(value_year) + 1}'
+        f'Model prediction for {value} share price in {int(value_year) + 1}'
     ]
     if value_size == 1:
         chart_titles = [c.replace('years', 'year') for c in chart_titles]
