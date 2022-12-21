@@ -8,19 +8,7 @@ stock_codes = [
         'description' : 'iShares Core S&P Small-Cap ETF',
     },
     {
-        'name' : 'AAPL',
-        'description' : 'Apple Inc',
-    },
-    {
-        'name' : 'BTC-USD',
-        'description' : 'Bitcoin USD',
-    },
-    {
-        'name' : 'VAS.AX',
-        'description' : 'Vanguard Australian Shares Index Fund',
-    },
-    {
-        'name' : 'VAP.AX',
-        'description' : 'Vanguard Australian Property Securities Index Fund',
-    }        
+        'name' : 'IJH',
+        'description' : 'iShares S&P Mid-Cap ETF',
+    } 
 ]

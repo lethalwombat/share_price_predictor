@@ -44,8 +44,8 @@ dropdowns = dbc.Container([
     dropdown_wrap(create_dropdown(stock_codes_values, 'Select stock code:', id='dropdown-stock-code')),
     dropdown_wrap(create_dropdown([str(i) for i in range(2010, 2020)], 'Last year of training data:', id='dropdown-year')),
     dropdown_wrap(create_dropdown([i for i in range(1, 4)], 'Training data years:', id='dropdown-data-size')),
-    dropdown_wrap(create_dropdown([0.01, 0.05, 0.1, 0.2], 'Learning rate:', id='input-learning-rate')),
-    dropdown_wrap(create_dropdown([50, 100, 150], 'Number of estimators:', id='input-dropdown-estimators')),
+    dropdown_wrap(create_dropdown([round(i/100, 2) for i in range(2, 22, 2)], 'Learning rate:', id='input-learning-rate')),
+    dropdown_wrap(create_dropdown([i for i in range(50, 1050, 50)], 'Number of estimators:', id='input-dropdown-estimators')),
     dropdown_wrap(create_dropdown(['GB', 'LinReg'], 'Model type:', id='input-model-type')),    
 ], fluid=True)
 

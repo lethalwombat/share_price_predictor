@@ -21,6 +21,20 @@ def create_metrics_widget(top_metric_id='', middle_metric_id='', bottom_metric_i
     return dbc.Container([
         dbc.Row([
             dbc.Col([
+                html.H4()
+            ], width=12)
+        ]),
+        dbc.Row([
+            dbc.Col([
+                html.Div(style={'border-top' : '1px grey dotted'})
+            ], width=12)
+        ]),
+        dbc.Row([
+            dbc.Col([html.Br()
+            ], width=12)
+        ]),       
+        dbc.Row([
+            dbc.Col([
                 html.H5(id=top_metric_id, style={'text-align' : 'center'})
             ], width=12)
         ]),
