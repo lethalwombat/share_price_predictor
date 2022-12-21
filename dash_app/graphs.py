@@ -5,7 +5,7 @@ def create_graph(label_id='', graph_id=''):
     return dbc.Container([
         dbc.Row([
             dbc.Col([
-                html.H4(id=label_id, style={'text-align' : 'center'})
+                html.H5(id=label_id, style={'text-align' : 'center'})
             ], width=12)
         ]),
         dbc.Row([
@@ -21,7 +21,7 @@ def create_metrics_widget(top_metric_id='', middle_metric_id='', bottom_metric_i
     return dbc.Container([
         dbc.Row([
             dbc.Col([
-                html.H4()
+                html.H5()
             ], width=12)
         ]),
         dbc.Row([

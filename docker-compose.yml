@@ -13,5 +13,5 @@ services:
       - /home/lethwombie/git/stock_price_predictor/dash_app:/dash_app
       - /home/lethwombie/git/stock_price_predictor/helpers:/helpers
     working_dir: /dash_app
-    # entrypoint: ["./app_start.sh"]
-    entrypoint: ["python", "app.py"]
+    entrypoint: ["./app_start.sh"]
+    # entrypoint: ["python", "app.py"]

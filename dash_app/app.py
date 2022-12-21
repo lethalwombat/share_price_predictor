@@ -197,5 +197,5 @@ def update_graph(value, value_year, value_size, value_learning_rate, value_n_est
         r2_score, direction_accuracy, estimators_disabled, learning_rate_disabled
 
 # uncomment below for development and debugging
-if __name__ == '__main__':
-    app.run_server(port='8050', host='0.0.0.0', debug=True)
+# if __name__ == '__main__':
+#     app.run_server(port='8050', host='0.0.0.0', debug=True)
