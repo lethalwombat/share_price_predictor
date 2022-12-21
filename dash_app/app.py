@@ -59,7 +59,7 @@ app.layout = dbc.Container([
         ], width=2, align='end'),
         dbc.Col([
             html.Br(),
-            html.H2('Stock Price Predictor', style={'text-align' : 'center', 'font-weight' : 'bold'}),
+            html.H2('Share Price Predictor', style={'text-align' : 'center', 'font-weight' : 'bold'}),
             html.Br(),
         ], width=10)
     ]),
