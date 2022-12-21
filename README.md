@@ -1,5 +1,5 @@
 # Summary
-![The San Juan Mountains are beautiful!](https://github.com/lethalwombat/share_price_predictor/blob/main/dash_app/assets/app_overview.jpg "San Juan Mountains")
+![Share Price Predictor](https://github.com/lethalwombat/share_price_predictor/blob/main/dash_app/assets/app_overview.jpg "Share Price Predictor")
 ## Use case
 todo
 ## Project directory overview
