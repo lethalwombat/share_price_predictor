@@ -83,7 +83,7 @@ To deploy the application in the environment of your choice, follow the process 
 | -----------: | :----------- |
 | Top left | Model fit for training data |
 | Top right | Model fit for validation data |
-| Bottom right | Direction match breakdown. <font style="color:green">Green</font> when both prediction and actual price movement match, e.g. `increase == increase` or `decrease == decrease` and <font style="color:red">red</font> otherwise
+| Bottom right | Direction match breakdown. <p style="color:green">Green</p> when both prediction and actual price movement match, e.g. `increase == increase` or `decrease == decrease` and <p style="color:red">red</p> otherwise
 
 ### Metrics
 | Location | Description |
