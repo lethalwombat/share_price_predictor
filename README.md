@@ -94,12 +94,12 @@ To deploy the application in the environment of your choice, follow the process 
 
 ## Model features and target
 ### Target
-| | Description |
+| Code variable name | Description |
 | -----------: | :----------- |
 | `price_increase_next_day` | Price change on the next trading day |
 
 ### Features
-| | Description |
+| Code variable name | Description |
 | -----------: | :----------- |
 | `price_increase_today` | Price change compared to the previous trading day |
 | `price_highest_5` | Is the price highest in 5 days? |
