@@ -31,6 +31,13 @@ At a high level, the application showcases a Data Science workflow consisting of
 
 While **Share Price Predictor** is able to train a model using historical data, it should not be used to make personal investment decisions driven by the predictions. The goal of the project is not to create the best possible model, but to demonstrate an end-to-end approach to building a self-contained Data Science application.
 ## Project directory overview
+`|--dash_app` contains all code and assets required for the dashboard
+
+`|--helpers` contains data preparation and model training code
+
+`|--Dockerfile` contains Docker image build definition
+
+`|--requirements.txt` contains required Python libraries
 ```
 share_price_predictor
 |--dash_app
