@@ -1,5 +1,5 @@
 # Summary
-**Share Price Predictor** uses publicly available historical stock data to extract share price movement patterns and generates predictions on the specified unseen data.
+**Share Price Predictor** uses publicly available historical stock data to extract share price movement patterns and generate predictions on the specified unseen data.
 
 ## Use case
 **Share Price Predictor** is an application that demonstrates the skeleton of the end-to-end Data Science workflow. The application demonstrates several parts of the process from scratch.
@@ -86,7 +86,7 @@ To deploy the application in the environment of your choice, follow the process 
 | Number of estimators | How many estimators should be used in training (not applicable to LinReg) |
 | Model type | Linear Regression or Gradient Boosting |
 
-### Graphs
+### Visualisations
 | Location | Description |
 | -----------: | :----------- |
 | Top left | Model fit for training data |
@@ -95,7 +95,7 @@ To deploy the application in the environment of your choice, follow the process 
 | Bottom right | Direction match breakdown. <span style="color:green">Green</span> when both prediction and actual price movement match, e.g. `increase == increase` or `decrease == decrease` and <span style="color:red">red</span> otherwise
 
 ### Metrics
-| Location | Description |
+| Name | Description |
 | -----------: | :----------- |
 | R2 Score| Coefficient of determination |
 | Direction match | Percentage of predictions where prediction direction matches with actual |
