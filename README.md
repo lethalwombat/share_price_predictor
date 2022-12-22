@@ -1,6 +1,34 @@
 # Summary
+Stock Price Predictor uses publicly available historical stock data to extract share price movement patterns and generates predictions on unseen data.
+
 ## Use case
-todo
+Stock Price Predictor is an application that demonstrates the skeleton of the end-to-end Data Science workflow. The application demonstrates several parts of the process from scratch.
+
+At a high level, the application showcases a Data Science workflow consisting of
+1. Infrastructure deployment using Docker
+    * Create a Docker image with all necessary dependencies
+    * Start the service with one command
+
+
+2. Data sourcing
+    * Download the required data for model training
+
+
+3. Data preparation
+    * Create model features
+    * Split the data into training and validation
+
+4. Algorithm training
+    * Model fitting
+    * Inference or predictions
+
+
+5. Front-end application build for business users
+    * Demonstrate prediction accuracy
+    * Demonstrate how model fit can be enhanced using various algorithm types and data settings
+
+
+While Stock Price Predictor is able to train a model using historical data, it should not be used to make personal investment decisions driven by the predictions. The goal of the project is not to create the best possible model, but to demonstrate an end-to-end approach to building a self-contained Data Science application.
 ## Project directory overview
 ```
 share_price_predictor
