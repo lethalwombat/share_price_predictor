@@ -83,13 +83,34 @@ To deploy the application in the environment of your choice, follow the process 
 | -----------: | :----------- |
 | Top left | Model fit for training data |
 | Top right | Model fit for validation data |
+| Bottom left | See 'Metrics' below |
 | Bottom right | Direction match breakdown. <span style="color:green">Green</span> when both prediction and actual price movement match, e.g. `increase == increase` or `decrease == decrease` and <span style="color:red">red</span> otherwise
 
 ### Metrics
 | Location | Description |
 | -----------: | :----------- |
-| Bottom left | Model fit for training data |
-| Bottom left | Model fit for validation data |
+| R2 Score| Coefficient of determination |
+| Direction match | Percentage of predictions where prediction direction matches with actual |
 
 ## Model features and target
-todo
+### Target
+| | Description |
+| -----------: | :----------- |
+| `price_increase_next_day` | Price change on the next trading day |
+
+### Features
+| | Description |
+| -----------: | :----------- |
+| `price_increase_today` | Price change compared to the previous trading day |
+| `price_highest_5` | Is the price highest in 5 days? |
+| `price_highest_10` | Is the price highest in 10 days? |
+| `price_highest_30` | Is the price highest in 30 days? |
+| `price_highest_ever` | Is the price highest ever? |
+| `increase_highest_5` | Is the increase highest in 5 days? |
+| `increase_highest_10` | Is the increase highest in 10 days? |
+| `increase_highest_30` | Is the increase highest in 30 days? |
+| `increase_highest_ever` | Is the increase highest ever? |
+| `increase_highest_2` | Increase rolling mean for last 2 days |
+| `increase_highest_3` | Increase rolling mean for last 3 days |
+| `increase_highest_5` | Increase rolling mean for last 5 days |
+| `increase_highest_7` | Increase rolling mean for last 7 days |
