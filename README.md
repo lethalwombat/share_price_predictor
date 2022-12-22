@@ -70,7 +70,7 @@ To deploy the application in the environment of your choice, follow the process 
 
 ### Model inputs
 | Input | Description |
-| -----------: | ----------- |
+| -----------: | :----------- |
 | Stock code | Which stock code the prediction should be generated for |
 | Last year of training data | What is the latest year of the training data |
 | Training data years | How many full years of training data should be included |
@@ -80,14 +80,14 @@ To deploy the application in the environment of your choice, follow the process 
 
 ### Graphs
 | Location | Description |
-| -----------: | ----------- |
+| -----------: | :----------- |
 | Top left | Model fit for training data |
 | Top right | Model fit for validation data |
-| Bottom right | Direction match breakdown. <span style="color:green">Green</span> when both prediction and actual price movement match, e.g. `increase == increase` or `decrease == decrease` and <span style="color:red">red</span> otherwise
+| Bottom right | Direction match breakdown. <font style="color:green">Green</font> when both prediction and actual price movement match, e.g. `increase == increase` or `decrease == decrease` and <font style="color:red">red</font> otherwise
 
 ### Metrics
 | Location | Description |
-| -----------: | ----------- |
+| -----------: | :----------- |
 | Bottom left | Model fit for training data |
 | Bottom left | Model fit for validation data |
 
