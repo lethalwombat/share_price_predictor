@@ -24,4 +24,4 @@ COPY helpers /helpers
 EXPOSE 8050
 
 # entrypoint to the application
-CMD ["/dash_app/app_start.sh"]
+CMD ["gunicorn", "-b", "0.0.0.0:8050",  "share_price_predictor.wsgi"]
