@@ -21,7 +21,7 @@ COPY dash_app /dash_app
 COPY helpers /helpers
 
 # expose 8050 to the outside world
-EXPOSE 8050
+EXPOSE 8000
 
 # entrypoint to the application
-CMD ["gunicorn", "-b", "0.0.0.0:8050",  "share_price_predictor.wsgi"]
+CMD ["gunicorn", "-b", "0.0.0.0:8000",  "share_price_predictor.wsgi"]
