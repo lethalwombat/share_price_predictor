@@ -25,4 +25,4 @@ EXPOSE 8000
 
 # entrypoint to the application
 # CMD ["gunicorn", "-b", "0.0.0.0:8000",  "share_price_predictor.wsgi"]
-CMD ["gunicorn", "-b", "0.0.0.0:8000", "app:server"]
+CMD ["gunicorn", "-b", "0.0.0.0:8000"]
