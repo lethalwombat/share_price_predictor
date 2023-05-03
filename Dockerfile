@@ -22,3 +22,6 @@ COPY helpers /helpers
 
 # expose 8050 to the outside world
 EXPOSE 8050
+
+# entrypoint to the application
+CMD ["/dash_app/app_start.sh"]
